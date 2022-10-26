@@ -1,7 +1,5 @@
 package example.lt.lhu.test6;
 
-import java.util.Scanner;
-
 public class Time {
 	private int hours;
 	private int minutes;
@@ -13,85 +11,86 @@ public class Time {
 		seconds = 20;
 	}
 
-	Time(int a, int b, int c) {
-		this.hours = a;
-		this.minutes = b;
-		this.seconds = c;
+	Time(int h, int m, int s) {
+		this.hours = h;
+		this.minutes = m;
+		this.seconds = s;
 	}
 
-	public int installHours() {
-		Scanner h = new Scanner(System.in);
-		hours = h.nextInt();
-
-		if (hours > -1 && hours < 25) {
-			return hours;
+	public void installTime(int h, int m, int s) {
+		if (h > 0 && h < 23) {
+			this.hours = h;
 		} else {
 			hours = 0;
-			return hours;
 		}
-	}
-
-	public int installMinutes() {
-		Scanner m = new Scanner(System.in);
-		minutes = m.nextInt();
-
-		if (minutes > -1 && minutes < 61) {
-			return minutes;
+		if (m > 0 && m < 60) {
+			this.minutes = m;
 		} else {
-			minutes = 0;
-			return minutes;
+			this.minutes = 0;
 		}
-	}
-
-	public int installSeconds() {
-		Scanner s = new Scanner(System.in);
-		seconds = s.nextInt();
-
-		if (seconds > -1 && seconds < 61) {
-			return seconds;
+		if (s > 0 && s < 60) {
+			this.seconds = s;
 		} else {
-			seconds = 0;
-			return seconds;
+			this.seconds = 0;
 		}
 	}
 
-	public void installTime() {
-		System.out.println("Install time ");
-		System.out.println("Hours : ");
-		installHours();
-		System.out.println("Minutes: ");
-		installMinutes();
-		System.out.println("Seconds: ");
-		installSeconds();
-
+	public void changeSeconds(int s) {
+		this.seconds = this.seconds + s;
+		if (this.seconds > 59) {
+			this.minutes = this.minutes + (this.seconds / 60);
+			this.seconds = this.seconds % 60;
+		}
+		if (this.minutes > 59) {
+			this.hours = this.hours + (this.minutes / 60);
+			this.minutes = this.minutes % 60;
+		}
+		if (this.hours > 24) {
+			this.hours = this.hours % 24;
+		}
 	}
 
-	public void print() {
-		System.out.println("Time = " + hours + " :" + minutes + " :" + seconds + " .");
+	public void changeMinutes(int m) {
+		changeSeconds(m * 60);
 	}
 
-	public void setHours(int a) {
-		this.hours = a;
+	public void changeHours(int h) {
+		changeSeconds(h * 60 * 60);
+	}
+
+	public void setHours(int h) {
+		if (h > 0 && h < 23) {
+			this.hours = h;
+		} else {
+			hours = 0;
+		}
 	}
 
 	public int getHours() {
 		return this.hours;
 	}
 
-	public void setMinutes(int b) {
-		this.minutes = b;
+	public void setMinutes(int m) {
+		if (m > 0 && m < 60) {
+			this.minutes = m;
+		} else {
+			this.minutes = 0;
+		}
 	}
 
 	public int getMinutes() {
 		return this.minutes;
 	}
 
-	public void setSeconds(int c) {
-		this.seconds = c;
+	public void setSeconds(int s) {
+		if (s > 0 && s < 60) {
+			this.seconds = s;
+		} else {
+			this.seconds = 0;
+		}
 	}
 
 	public int getSeconds() {
 		return this.seconds;
 	}
-
 }
